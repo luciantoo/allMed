@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>AllMedical</title>
+		<style title="MainDiv">
+			body {
+				background-image: url(img/background.jpg);
+			}
+			
+			div {
+				background-color: #BFBFBF;
+				alignment-adjust: central;
+				background-image: url(img/background-div.png);
+			}
+			
+			img {
+				border: 20px solid rgba(255, 0, 0, 0);
+				background-clip: padding-box;
+			}
+			
+			a:link {
+    			color: #373737;
+    			text-decoration: none;
+    		}
+
+			a:visited {
+   				color: #373737;
+			}
+
+			a:hover {
+    			color: #5B5B5B;
+			}
+
+			a:active {
+    			color: #373737;
+			}
+
+			#center {
+				margin-left: auto;
+    			margin-right: auto;
+    			width: 500px;
+    			border-radius: 1px;
+  				box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
+			}
+			
+			#text {
+			    font-family: Helvetica;
+			    font-weight: bold;
+			    font-size: 12px;
+			    color: #424242;
+			    
+			}
+		</style>
+	<?php
+	session_start(); 
+	?>
+	</head>
+
+	<body>
+		<br /><br /><br />
+		<div id="center" align="center">
+			<img src="img/AllMedical-logo.png" alt="logo" title="logo"/>
+			<br />
+			<img src="img/login.png" alt="login" title="login"/>
+			<br />
+			<form name="login" action="login.php" method="POST" accept-charset="utf-8" id="text">  
+    		<table>
+        	<tr><td><label for="usermail">E-Mail</label></td>
+        	<td><input type="email" name="usermail" placeholder="user@email.com" required></td></tr>
+        	<tr><td><label for="password">Password</label></td>
+        	<td><input type="password" name="password" placeholder="password" required></td></tr>
+			</table>
+        	<input type="submit" name="submit" value="Login">
+			<br />
+			<p id="text">Don't have an account? Register <a href="/wad/register">here</a>.</p><br />
+			<p id="text"><a href="/wad/help">About us</a></p><br />
+		</div>
+	</body>
+</html>
