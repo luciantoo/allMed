@@ -7,7 +7,7 @@ switch ($action) {
     include 'help.php';
     break;
   case "register":
-	include 'register.php';
+	include 'register.html';
 	break;
   case "login-failed":
 	include 'login-failed.php';

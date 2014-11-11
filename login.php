@@ -17,11 +17,11 @@ function SignIn() {
 			$row = mysql_fetch_array($query) or die("Failed " . mysql_error());
 			$_SESSION['email'] = $row['password']; 
 			session_write_close();
-			header("Location: http://localhost/wad"); 
+			header("Location: /wad"); 
 		}
 		else 
 		{ 
-			header("Location: http://localhost/wad/login-failed"); 
+			header("Location: /wad/login-failed"); 
 		}
 			
 	} 
