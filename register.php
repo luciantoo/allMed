@@ -21,10 +21,10 @@ $emailtest = TRUE;
 $query = mysql_query("SELECT * FROM `user-info` where email = '$usermail'") or die(mysql_error());
 if(mysql_num_rows($query) > 0) $emailtest = FALSE;
 
-if($password != $confirm && $email-test == 'true') {
-    header('Location: /wad/register.html?email=good&pass=bad'); }
-else if($password != $confirm && $emailtest == FALSE) {
+if($password != $confirm && $email-test == FALSE) {
     header('Location: /wad/register.html?email=bad&pass=bad'); }
+else if($password != $confirm && $emailtest == TRUE) {
+    header('Location: /wad/register.html?email=good&pass=bad'); }
 else if($password == $confirm && $emailtest == FALSE) {
     header('Location: /wad/register.html?email=bad&pass=good'); }
 	
