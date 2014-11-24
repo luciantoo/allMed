@@ -2,70 +2,41 @@
 <html lang="en">
 	<head>
 		<title>AllMedical</title>
-		<style title="MainDiv">
-			body {
-				background-image: url(img/background.jpg);
-				
-			    font-family: Helvetica;
-			    font-weight: bold;
-			    font-size: 12px;
-			    color: #424242;
-			}
-			
-			div {
-				background-color: #BFBFBF;
-				alignment-adjust: central;
-				background-image: url(img/background-div.png);
-			}
-			
-			img {
-				border: 20px solid rgba(255, 0, 0, 0);
-				background-clip: padding-box;
-			}
-			
-			a:link {
-    			color: #373737;
-    			text-decoration: none;
-    		}
-
-			a:visited {
-   				color: #373737;
-			}
-
-			a:hover {
-    			color: #5B5B5B;
-			}
-
-			a:active {
-    			color: #373737;
-			}
-
-			#center {
-				margin-left: auto;
-    			margin-right: auto;
-    			width: 500px;
-				height: 409px;
-    			border-radius: 1px;
-  				box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
-			}
-			
-		</style>
+		
 
 	<?php 
 	session_start(); 
 	if(!isset($_SESSION['email'])) {
 		header("Location: /wad/login"); }
+		
+	define('DB_HOST', 'localhost'); 
+	define('DB_NAME', 'wad'); 
+	define('DB_USER','root'); 
+	define('DB_PASSWORD',''); 
+	$con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error()); 
+	$db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error()); 
+	$uid = $_SESSION['email'];
+	$query = mysql_query("SELECT * FROM `user-info` where uid = '$uid'") or die(mysql_error());
+	$row = mysql_fetch_array($query) or die("Failed " . mysql_error());
+	$usertype = $row['usertype'];
+	
+	switch ($usertype) {
+	case "admin":
+		include 'admin_home.php';
+		break;
+	case "doctor":
+		include 'doctor_home.php';
+		break;
+	case "pacient":
+		include 'pacient_home.php';
+		break;
+	
+	}
+	
+	
 	?>
 	</head>
 
 	<body>
-		<br /><br /><br />
-		<div id="center" align="center">
-			<br><br><br><br>
-			<p> You are logged in. </p>
-			<form action="http://localhost/wad/logout">
-				<input type="submit" value="Logout">
-			</form>
-		</div>
 	</body>
 </html>

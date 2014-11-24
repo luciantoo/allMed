@@ -50,6 +50,20 @@
 			    color: #424242;
 			    
 			}
+			
+			#logo {
+				background-color: rgba(0, 0, 0, 0);
+				width: 416px;
+				height: 95px;
+				background-image: url(img/AllMedical-logo.png);
+			}
+			
+			#login {
+				background-color: rgba(0, 0, 0, 0);
+				width: 84px;
+				height: 45px;
+				background-image: url(img/login.png);
+			}
 		</style>
 	<?php
 	session_start(); 
@@ -59,10 +73,10 @@
 	<body>
 		<br /><br /><br />
 		<div id="center" align="center">
-		<br>
-			<img src="img/AllMedical-logo.png" alt="logo" title="logo"/>
-			<br />
-			<img src="img/login.png" alt="login" title="login"/>
+		<br><br><br>
+			<div id="logo"></div>
+			<br /><br>
+			<div id="login"></div>
 			<br />
 			<form name="login" action="login.php" method="POST" accept-charset="utf-8" id="text">  
     		<table>

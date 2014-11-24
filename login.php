@@ -10,14 +10,23 @@ function SignIn() {
 	session_start(); 
 	{ 
 		$mail=md5($_POST['usermail']);
+		$mail_clear = $_POST['usermail'];
 		$pass=md5($_POST['password']);
 		$query = mysql_query("SELECT * FROM `user-login` where email = '$mail' AND password = '$pass'") or die(mysql_error());
 		if(mysql_num_rows($query) > 0) 
 		{
-			$row = mysql_fetch_array($query) or die("Failed " . mysql_error());
-			$_SESSION['email'] = $row['password']; 
-			session_write_close();
-			header("Location: /wad"); 
+			$query_active = mysql_query("SELECT * FROM `user-info` where email = '$mail_clear'") or die(mysql_error());
+			$row_active = mysql_fetch_array($query_active) or die("Failed " . mysql_error());
+			
+			if($row_active['active'] == 0) {
+				header("Location: /wad/notactive.php");
+			}
+			else {
+				$row = mysql_fetch_array($query) or die("Failed " . mysql_error());
+				$_SESSION['email'] = $row['uid']; 
+				session_write_close();
+				header("Location: /wad"); 
+			}
 		}
 		else 
 		{ 
