@@ -18,6 +18,12 @@ switch ($action) {
   case "logout":
 	include 'logout.php';
 	break;
+  case "create":
+	include 'create.php';
+	break;
+  case "previous":
+	include 'previous.php';
+	break;
   default:
     include 'notfound.php';
 }

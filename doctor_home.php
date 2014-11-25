@@ -63,6 +63,24 @@
 				background-image: url(img/AllMedical-logo.png);
 			}
 			
+			#previous {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 312px;
+				height: 48px;
+				background-image: url(img/previous.png);
+			
+			}
+			
+			#create {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 274px;
+				height: 48px;
+				background-image: url(img/create.png);
+			
+			}
+			
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -205,8 +223,10 @@ table tr:hover td{
 	}
 	print "</table>";
 	?>
-	
+	<a href = "/wad/previous"><div id="previous"></div></a>
+	<a href = "/wad/create"><div id="create"></div></a>
 	<br><br><br><br>
 	</div>
+	<br><br><br><br>
 	</body>
 </html>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2014 at 06:57 PM
+-- Generation Time: Nov 25, 2014 at 02:44 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -30,16 +30,18 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `dr_uid` int(11) NOT NULL,
   `p_uid` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `notes` varchar(100) NOT NULL
+  `notes` varchar(100) NOT NULL,
+  `p_notes` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`dr_uid`, `p_uid`, `date`, `notes`) VALUES
-(2, 3, '2014-11-26 11:30:00', 'Unidentified issues regarding a specific organ and whatnot. Might be a common non-issue or terminal.'),
-(2, 3, '2014-11-28 15:15:00', 'Follow-up on previous consultation.');
+INSERT INTO `appointments` (`dr_uid`, `p_uid`, `date`, `notes`, `p_notes`) VALUES
+(2, 3, '2014-11-04 13:00:00', 'New pacient.', ''),
+(2, 3, '2014-11-26 11:30:00', 'Unidentified issues regarding a specific organ and whatnot. Might be a common non-issue or terminal.', 'Do not eat any mangos at least 7 hours before the appointment.'),
+(2, 3, '2014-11-28 15:15:00', 'Follow-up on previous consultation.', '');
 
 -- --------------------------------------------------------
 
@@ -55,17 +57,18 @@ CREATE TABLE IF NOT EXISTS `user-info` (
   `firstname` varchar(20) NOT NULL,
   `lastname` varchar(20) NOT NULL,
   `city` varchar(30) NOT NULL,
-  `address` varchar(80) NOT NULL
+  `address` varchar(80) NOT NULL,
+  `doctor` varchar(50) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user-info`
 --
 
-INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `lastname`, `city`, `address`) VALUES
-(1, 1, 'admin', 'vladvidac@gmail.com', 'Vlad', 'Vidac', '', ''),
-(2, 1, 'doctor', 'thedoctor@email.com', 'Perry', 'Cox', '', ''),
-(3, 1, 'pacient', 'thepacient@email.com', 'John', 'Smith', '', '');
+INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `lastname`, `city`, `address`, `doctor`) VALUES
+(1, 1, 'admin', 'vladvidac@gmail.com', 'Vlad', 'Vidac', '', '', ''),
+(2, 1, 'doctor', 'thedoctor@email.com', 'Perry', 'Cox', '', '', ''),
+(3, 1, 'pacient', 'thepacient@email.com', 'John', 'Smith', 'Timisoara', 'Blvd. 1 Decembrie 201', 'Perry Cox');
 
 -- --------------------------------------------------------
 

@@ -47,12 +47,12 @@
   				box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
 			}
 			
-			#upcoming {
+			#home {
 			
 				background-color: rgba(0, 0, 0, 0);
-				width: 400px;
-				height: 62px;
-				background-image: url(img/upcoming.png);
+				width: 98px;
+				height: 50px;
+				background-image: url(img/home.png);
 			
 			}
 			
@@ -61,15 +61,6 @@
 				width: 416px;
 				height: 95px;
 				background-image: url(img/AllMedical-logo.png);
-			}
-			
-			#home {
-			
-				background-color: rgba(0, 0, 0, 0);
-				width: 98px;
-				height: 50px;
-				background-image: url(img/home.png);
-			
 			}
 			
 			#previous {
@@ -181,7 +172,7 @@ table tr:hover td{
 			
 		</style>
 
-	<?php 
+	<?php
 	session_start(); 
 	if(!isset($_SESSION['email'])) {
 		header("Location: /wad/login"); }
@@ -193,14 +184,17 @@ table tr:hover td{
 	$con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error()); 
 	$db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error()); 
 	
-	$uid = $_GET["uid"];
-	$dr_uid = $_SESSION["email"];
+	$uid = $_SESSION['email'];
 	
 	$query = mysql_query("SELECT * FROM `user-info` where uid = '$uid'") or die(mysql_error());
 	$row = mysql_fetch_array($query) or die("Failed " . mysql_error());
-	
-	$appointment_query = mysql_query("SELECT * FROM `appointments` where p_uid = '$uid' AND dr_uid = '$dr_uid' AND date > SYSDATE() order by date") or die(mysql_error());
-	$appointment_query2 = mysql_query("SELECT * FROM `appointments` where p_uid = '$uid' AND dr_uid = '$dr_uid' AND date < SYSDATE() order by date") or die(mysql_error());
+	$usertype = $row['usertype'];
+	if($usertype == 'doctor') {
+	$appointment_query = mysql_query("SELECT * FROM `appointments` where dr_uid = '$uid' AND date < SYSDATE() order by date") or die(mysql_error());
+	}
+	else {
+	$appointment_query = mysql_query("SELECT * FROM `appointments` where p_uid = '$uid' AND date < SYSDATE() order by date") or die(mysql_error());
+	}
 	?>
 	</head>
 
@@ -210,38 +204,39 @@ table tr:hover td{
 	<div id="center" align="center">
 	<br><br><br><br>
 	<div id="logo"></div><br>
-	<a href= "/wad"><div id="home"></div></a>
-	<table cellspacing='0'>
-	<tr><td>Name</td><td><?php print $row["firstname"] . " " . $row["lastname"] ?></td></tr>
-	<tr><td>E-mail</td><td><?php print $row["email"] ?></td></tr>
-	<tr><td>Address</td><td><?php print $row["address"] . ", " . $row["city"] ?></td></tr>
-	<tr><td>Primary doctor</td><td><?php print $row["doctor"] ?></td></tr>
-	</table>
-	<div id="upcoming"></div>
-	<table cellspacing='0'>
-	<tr><th>Date</th><th>Time</th><th>Notes</th><th>Pacient notes</th></tr>
-	<?php
-	while($row = mysql_fetch_array($appointment_query)){
-	$time = date('G:m', strtotime($row['date']));
-	$date = date('d M Y', strtotime($row['date']));
-    print "<tr><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td>".$row['p_notes']."</td></tr>";
-	}
-	print "</table>";
-	?>
+	<a href = "/wad/"><div id="home"></div></a>
+	<br>
 	<div id="previous"></div>
 	<table cellspacing='0'>
-	<tr><th>Date</th><th>Time</th><th>Notes</th><th>Pacient notes</th></tr>
+	<tr><th>Name</th><th>Date</th><th>Time</th><th>Notes</th></tr>
 	<?php
-	while($row = mysql_fetch_array($appointment_query2)){
+	
+	while($row = mysql_fetch_array($appointment_query)){
+	
+	if ($usertype == 'doctor') {
+		$uid = $row['p_uid'];
+		$notes = $row['notes'];
+		$query = mysql_query("SELECT * FROM `user-info` where uid = '$uid'") or die(mysql_error());
+		$row_temp = mysql_fetch_array($query) or die("Failed " . mysql_error());
+		$name = "<a href = \"/wad/profile.php?uid=".$uid."\">".$row_temp['firstname']." ".$row_temp['lastname']."</a>";
+	}
+	else {
+		$uid = $row['dr_uid'];
+		$notes = $row['p_notes'];
+		$query = mysql_query("SELECT * FROM `user-info` where uid = '$uid'") or die(mysql_error());
+		$row_temp = mysql_fetch_array($query) or die("Failed " . mysql_error());
+		$name = $row_temp['firstname']." ".$row_temp['lastname'];
+	}
+	
+	
 	$time = date('G:m', strtotime($row['date']));
 	$date = date('d M Y', strtotime($row['date']));
-    print "<tr><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td>".$row['p_notes']."</td></tr>";
+    print "<tr><td>".$name."</td><td>".$date."</td><td>".$time."</td><td>".$notes."</td></tr>";
 	}
 	print "</table>";
-	?>
+	?>	
 	<br><br><br><br>
 	</div>
-	
 	<br><br><br><br>
 	</body>
 </html>
