@@ -72,6 +72,8 @@
 			
 			}
 			
+		
+			
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -229,11 +231,13 @@ table tr:hover td{
 	}
 	
 	
-	$time = date('G:m', strtotime($row['date']));
+	$time = date('G:i', strtotime($row['date']));
 	$date = date('d M Y', strtotime($row['date']));
     print "<tr><td>".$name."</td><td>".$date."</td><td>".$time."</td><td>".$notes."</td></tr>";
 	}
 	print "</table>";
+	
+	
 	?>	
 	<br><br><br><br>
 	</div>

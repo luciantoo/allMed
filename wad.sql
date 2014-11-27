@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2014 at 02:44 PM
+-- Generation Time: Nov 27, 2014 at 01:28 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `wad`
 --
+CREATE DATABASE IF NOT EXISTS `wad` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `wad`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `appointments`
 --
 
+DROP TABLE IF EXISTS `appointments`;
 CREATE TABLE IF NOT EXISTS `appointments` (
   `dr_uid` int(11) NOT NULL,
   `p_uid` int(11) NOT NULL,
@@ -49,6 +52,7 @@ INSERT INTO `appointments` (`dr_uid`, `p_uid`, `date`, `notes`, `p_notes`) VALUE
 -- Table structure for table `user-info`
 --
 
+DROP TABLE IF EXISTS `user-info`;
 CREATE TABLE IF NOT EXISTS `user-info` (
 `uid` int(11) NOT NULL,
   `active` int(11) DEFAULT '0',
@@ -58,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `user-info` (
   `lastname` varchar(20) NOT NULL,
   `city` varchar(30) NOT NULL,
   `address` varchar(80) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `doctor` varchar(50) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -65,10 +70,10 @@ CREATE TABLE IF NOT EXISTS `user-info` (
 -- Dumping data for table `user-info`
 --
 
-INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `lastname`, `city`, `address`, `doctor`) VALUES
-(1, 1, 'admin', 'vladvidac@gmail.com', 'Vlad', 'Vidac', '', '', ''),
-(2, 1, 'doctor', 'thedoctor@email.com', 'Perry', 'Cox', '', '', ''),
-(3, 1, 'pacient', 'thepacient@email.com', 'John', 'Smith', 'Timisoara', 'Blvd. 1 Decembrie 201', 'Perry Cox');
+INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `lastname`, `city`, `address`, `phone`, `doctor`) VALUES
+(1, 1, 'admin', 'vladvidac@gmail.com', 'Vlad', 'Vidac', '', '', '', ''),
+(2, 1, 'doctor', 'thedoctor@email.com', 'Perry', 'Cox', 'Timisoara', 'Str. Calea Lipovei 128', '0721454784', 'Vlad Vidac'),
+(3, 1, 'pacient', 'thepacient@gmail.com', 'John', 'Smith', 'Timisoara', 'Blvd. 1 Decembrie 2231', '0256281078', 'Perry Cox');
 
 -- --------------------------------------------------------
 
@@ -76,6 +81,7 @@ INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `las
 -- Table structure for table `user-login`
 --
 
+DROP TABLE IF EXISTS `user-login`;
 CREATE TABLE IF NOT EXISTS `user-login` (
 `uid` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -89,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `user-login` (
 INSERT INTO `user-login` (`uid`, `email`, `password`) VALUES
 (1, '2f0d064289facc3ca8fc620070b52513', '5f4dcc3b5aa765d61d8327deb882cf99'),
 (2, 'b4ef7cf18a95299dea834de1dec9cd47', '5f4dcc3b5aa765d61d8327deb882cf99'),
-(3, '61118274bcae72d1816a80569adcfaaf', '5f4dcc3b5aa765d61d8327deb882cf99');
+(3, '293a706223aa59f9c3468bac21f3ab2b', '5f4dcc3b5aa765d61d8327deb882cf99');
 
 --
 -- Indexes for dumped tables

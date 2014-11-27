@@ -24,6 +24,15 @@ switch ($action) {
   case "previous":
 	include 'previous.php';
 	break;
+  case "approve":
+	include 'approve.php';
+	break;
+  case "details":
+	include 'detail.php';
+	break;
+  case "edit":
+	include 'edit.php';
+	break;
   default:
     include 'notfound.php';
 }

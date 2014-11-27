@@ -11,6 +11,7 @@ $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $city = $_POST['city'];
 $address = $_POST['address'];
+$phone = $_POST['phone'];
 $usermail = $_POST['usermail'];
 $password = $_POST['password'];
 $confirm = $_POST['confirm'];
@@ -29,8 +30,8 @@ else if($password == $confirm && $emailtest == FALSE) {
     header('Location: /wad/register.html?email=bad&pass=good'); }
 	
 
-$query = mysql_query("INSERT INTO `user-info` ( usertype, email, firstname, lastname, city, address )
-        VALUES ( '$usertype', '$usermail', '$firstname', '$lastname', '$city', '$address' );") or die(mysql_error());
+$query = mysql_query("INSERT INTO `user-info` ( usertype, email, firstname, lastname, city, address, phone )
+        VALUES ( '$usertype', '$usermail', '$firstname', '$lastname', '$city', '$address', '$phone' );") or die(mysql_error());
 		
 $query = mysql_query("INSERT INTO `user-login` ( email, password )
         VALUES ( '$md5mail', '$md5pass' );") or die(mysql_error());

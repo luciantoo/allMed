@@ -81,6 +81,15 @@
 			
 			}
 			
+			#create {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 274px;
+				height: 48px;
+				background-image: url(img/create.png);
+			
+			}
+			
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -222,7 +231,7 @@ table tr:hover td{
 	<tr><th>Date</th><th>Time</th><th>Notes</th><th>Pacient notes</th></tr>
 	<?php
 	while($row = mysql_fetch_array($appointment_query)){
-	$time = date('G:m', strtotime($row['date']));
+	$time = date('G:i', strtotime($row['date']));
 	$date = date('d M Y', strtotime($row['date']));
     print "<tr><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td>".$row['p_notes']."</td></tr>";
 	}
@@ -233,11 +242,13 @@ table tr:hover td{
 	<tr><th>Date</th><th>Time</th><th>Notes</th><th>Pacient notes</th></tr>
 	<?php
 	while($row = mysql_fetch_array($appointment_query2)){
-	$time = date('G:m', strtotime($row['date']));
+	$time = date('G:i', strtotime($row['date']));
 	$date = date('d M Y', strtotime($row['date']));
     print "<tr><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td>".$row['p_notes']."</td></tr>";
 	}
 	print "</table>";
+	
+	print "<a href=\"/wad/detail.php?uid=" . $uid . "\"><div id=\"create\"></div></a>";
 	?>
 	<br><br><br><br>
 	</div>

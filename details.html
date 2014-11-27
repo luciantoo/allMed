@@ -81,6 +81,31 @@
 			
 		</style>
 
+	<?php 
+	session_start();
+	
+	define('DB_HOST', 'localhost'); 
+	define('DB_NAME', 'wad'); 
+	define('DB_USER','root'); 
+	define('DB_PASSWORD',''); 
+	$con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error()); 
+	$db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error()); 
+	
+	$email = (isset($_POST['usermail']) ? $_POST['usermail'] : null);
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	
+	if ($email != null){
+		$query = mysql_query("SELECT * FROM `user-info` where email = '$email'") or die(mysql_error()); }
+	else {
+		$query = mysql_query("SELECT * FROM `user-info` where firstname = '$firstname' and lastname = '$lastname'") or die(mysql_error()); }
+	$row = mysql_fetch_array($query);
+	if(mysql_num_rows($query) < 1 || $row['usertype'] != 'pacient') { header('Location: /wad/create.php?alert=2'); }
+	else if (mysql_num_rows($query) > 1) { header('Location: /wad/create.php?alert=1'); }
+	else { $uid = (isset($_GET['uid']) ? $_GET['uid'] : $row['uid']);
+			$_SESSION['uid'] = (isset($_GET['uid']) ? $uid : null);	}
+	
+	?>
 	</head>
 
 	<body>
@@ -91,28 +116,24 @@
 			<a href = "/wad/"><div id="home"></div></a>
 			<div id="create"></div>
 			<br>
-			<p> Input patient information. </p>
-			<div id="alert"><?php 
-			$alert = (isset($_GET['alert']) ? $_GET['alert'] : 0);
-			if ($alert == 1){
-			print "<font color=\"#990033\">Several patients with same name, please input email.</font>"; } 
-			else if ($alert == 2) {
-			print "<font color=\"#990033\">No such patient exists.</font>"; } 
-			?>
-			</div><br>
-			<form action="/wad/details" method="post">
+			<p>Input appointment information.</p>
+			<form action="/wad/details.php?uid=<?php print $uid; ?>" method="post">
 				<table>
 					<tr>
-						<td><label for="firstname">First Name<font color="#990033">*</font></lable></td>
-						<td><input type="text" name="firstname" required autofocus></td>
+						<td><label for="date">Date<font color="#990033">*</font></lable></td>
+						<td><input type="date" name="date" required autofocus></td>
 					</tr>
 					<tr>
-						<td><label for="lastname">Last Name<font color="#990033">*</font></label></td>
-						<td><input type="text" name="lastname" required></td>
+						<td><label for="time">Time<font color="#990033">*</font></label></td>
+						<td><input type="time" name="time" required></td>
 					</tr>
 					<tr>
-						<td><label for="usermail">E-Mail</label></td>
-						<td><input type="email" name="usermail"></td>
+						<td><label for="notes">Notes</label></td>
+						<td><input type="text" name="notes" maxlength="100"></td>
+					</tr>
+					<tr>
+						<td><label for="pnotes">Pacient notes</label></td>
+						<td><input type="text" name="pnotes" maxlength="100" ></td>
 					</tr>
 				</table>
 				<br>

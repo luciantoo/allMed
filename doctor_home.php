@@ -56,6 +56,15 @@
 			
 			}
 			
+			#edit {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 136px;
+				height: 36px;
+				background-image: url(img/edit.png);
+			
+			}
+			
 			#logo {
 				background-color: rgba(0, 0, 0, 0);
 				width: 416px;
@@ -79,6 +88,13 @@
 				height: 48px;
 				background-image: url(img/create.png);
 			
+			}
+			
+			#approve {
+				background-color: rgba(0, 0, 0, 0);
+				width: 243px;
+				height: 45px;
+				background-image: url(img/approve.png);
 			}
 			
 table a:link {
@@ -210,21 +226,23 @@ table tr:hover td{
 	<br>
 	<div id="upcoming"></div>
 	<table cellspacing='0'>
-	<tr><th>Name</th><th>Date</th><th>Time</th><th>Notes</th><th></th></tr>
+	<tr><th>Name</th><th>Date</th><th>Time</th><th>Notes</th><th></th><th>Delete</th></tr>
 	<?php
 	while($row = mysql_fetch_array($query)){
 	$pacient = $row['p_uid'];
 	$query_temp = mysql_query("SELECT * FROM `user-info` where uid = '$pacient'") or die(mysql_error());
 	$row_temp = mysql_fetch_array($query_temp);
-	$time = date('G:m', strtotime($row['date']));
+	$time = date('G:i', strtotime($row['date']));
 	$date = date('d M Y', strtotime($row['date']));
 	$id = "/wad/profile.php?uid=" . $row_temp['uid'];
-    print "<tr><td>".$row_temp['firstname']." ".$row_temp['lastname']."</td><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td><a href=\"".$id."\">Profile</a></td></tr>";
+    print "<tr><td>".$row_temp['firstname']." ".$row_temp['lastname']."</td><td>".$date."</td><td>".$time."</td><td>".$row['notes']."</td><td><a href=\"".$id."\">Profile</a></td><td><a href=\"/wad/delete.php?date=".$row['date']."\"><img src=\"img/delete.png\" /></a></td></tr>";
 	}
 	print "</table>";
 	?>
-	<a href = "/wad/previous"><div id="previous"></div></a>
 	<a href = "/wad/create"><div id="create"></div></a>
+	<a href = "/wad/previous"><div id="previous"></div></a>
+	<a href = "/wad/approve"><div id="approve"></div></a>
+	<a href = "/wad/edit"><div id="edit"></div></a>
 	<br><br><br><br>
 	</div>
 	<br><br><br><br>
