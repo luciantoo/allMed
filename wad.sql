@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2014 at 01:28 PM
+-- Generation Time: Nov 29, 2014 at 01:16 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `wad`
 --
-CREATE DATABASE IF NOT EXISTS `wad` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `wad`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `wad`;
 -- Table structure for table `appointments`
 --
 
-DROP TABLE IF EXISTS `appointments`;
 CREATE TABLE IF NOT EXISTS `appointments` (
   `dr_uid` int(11) NOT NULL,
   `p_uid` int(11) NOT NULL,
@@ -44,7 +41,21 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 INSERT INTO `appointments` (`dr_uid`, `p_uid`, `date`, `notes`, `p_notes`) VALUES
 (2, 3, '2014-11-04 13:00:00', 'New pacient.', ''),
 (2, 3, '2014-11-26 11:30:00', 'Unidentified issues regarding a specific organ and whatnot. Might be a common non-issue or terminal.', 'Do not eat any mangos at least 7 hours before the appointment.'),
-(2, 3, '2014-11-28 15:15:00', 'Follow-up on previous consultation.', '');
+(2, 3, '2014-11-28 15:15:00', 'Follow-up on previous consultation.', ''),
+(2, 3, '2015-01-14 15:10:00', 'Follow up on previous consultation.', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requests`
+--
+
+CREATE TABLE IF NOT EXISTS `requests` (
+  `uid` int(11) NOT NULL,
+  `reason` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL,
+  `doctor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -52,7 +63,6 @@ INSERT INTO `appointments` (`dr_uid`, `p_uid`, `date`, `notes`, `p_notes`) VALUE
 -- Table structure for table `user-info`
 --
 
-DROP TABLE IF EXISTS `user-info`;
 CREATE TABLE IF NOT EXISTS `user-info` (
 `uid` int(11) NOT NULL,
   `active` int(11) DEFAULT '0',
@@ -73,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `user-info` (
 INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `lastname`, `city`, `address`, `phone`, `doctor`) VALUES
 (1, 1, 'admin', 'vladvidac@gmail.com', 'Vlad', 'Vidac', '', '', '', ''),
 (2, 1, 'doctor', 'thedoctor@email.com', 'Perry', 'Cox', 'Timisoara', 'Str. Calea Lipovei 128', '0721454784', 'Vlad Vidac'),
-(3, 1, 'pacient', 'thepacient@gmail.com', 'John', 'Smith', 'Timisoara', 'Blvd. 1 Decembrie 2231', '0256281078', 'Perry Cox');
+(3, 1, 'pacient', 'thepacient@email.com', 'John', 'Smith', 'Timisoara', 'Blvd. 1 Decembrie 2231', '0256281078', 'Perry Cox');
 
 -- --------------------------------------------------------
 
@@ -81,7 +91,6 @@ INSERT INTO `user-info` (`uid`, `active`, `usertype`, `email`, `firstname`, `las
 -- Table structure for table `user-login`
 --
 
-DROP TABLE IF EXISTS `user-login`;
 CREATE TABLE IF NOT EXISTS `user-login` (
 `uid` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -95,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `user-login` (
 INSERT INTO `user-login` (`uid`, `email`, `password`) VALUES
 (1, '2f0d064289facc3ca8fc620070b52513', '5f4dcc3b5aa765d61d8327deb882cf99'),
 (2, 'b4ef7cf18a95299dea834de1dec9cd47', '5f4dcc3b5aa765d61d8327deb882cf99'),
-(3, '293a706223aa59f9c3468bac21f3ab2b', '5f4dcc3b5aa765d61d8327deb882cf99');
+(3, '61118274bcae72d1816a80569adcfaaf', '5f4dcc3b5aa765d61d8327deb882cf99');
 
 --
 -- Indexes for dumped tables
@@ -106,6 +115,12 @@ INSERT INTO `user-login` (`uid`, `email`, `password`) VALUES
 --
 ALTER TABLE `appointments`
  ADD UNIQUE KEY `date` (`date`);
+
+--
+-- Indexes for table `requests`
+--
+ALTER TABLE `requests`
+ ADD PRIMARY KEY (`uid`,`date`);
 
 --
 -- Indexes for table `user-info`

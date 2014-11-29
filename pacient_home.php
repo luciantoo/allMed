@@ -81,6 +81,15 @@
 			
 			}
 			
+			#request {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 330px;
+				height: 36px;
+				background-image: url(img/requestapp.png);
+			
+			}
+			
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -218,6 +227,8 @@ table tr:hover td{
 	}
 	print "</table>";
 	?>
+	
+	<a href = "/wad/request"><div id="request"></div></a>
 	<a href = "/wad/previous"><div id="previous"></div></a>
 	<a href = "/wad/edit"><div id="edit"></div></a>
 	

@@ -97,6 +97,16 @@
 				background-image: url(img/approve.png);
 			}
 			
+			
+			#requests {
+			
+				background-color: rgba(0, 0, 0, 0);
+				width: 300px;
+				height: 36px;
+				background-image: url(img/apprequests.png);
+			
+			}
+			
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -213,6 +223,9 @@ table tr:hover td{
 	
 	$query = mysql_query("SELECT * FROM `appointments` where dr_uid = '$uid' AND date > SYSDATE() order by date") or die(mysql_error());
 	
+	$fullname = $doctor_row["firstname"] . " " . $doctor_row["lastname"];
+	$requests_query = mysql_query("SELECT * FROM `requests` where doctor = '$fullname' order by date") or die(mysql_error());
+	
 	?>
 	</head>
 
@@ -223,6 +236,26 @@ table tr:hover td{
 	<br><br><br><br>
 	<div id="logo"></div><br>
 	<p>Welcome Dr. <?php print $name ?>!</p><form action="/wad/logout"><input type="submit" value="Logout"></form>
+	<br>
+	
+	<?php
+	
+	if(mysql_num_rows($requests_query) > 0) {
+		print "<div id=\"requests\"></div><table cellspacing='0'><tr><th>Pacient</th><th>Preferred date</th><th>Preferred time</th><th>Reason</th><th>Profile</th><th>Delete</th></tr>";
+		while($row = mysql_fetch_array($requests_query)){
+			$pacient = $row['uid'];
+			$query_temp = mysql_query("SELECT * FROM `user-info` where uid = '$pacient'") or die(mysql_error());
+			$row_temp = mysql_fetch_array($query_temp);
+			$time = date('G:i', strtotime($row['date']));
+			$date = date('d M Y', strtotime($row['date']));
+			$id = "/wad/profile.php?uid=" . $row_temp['uid'];
+			print "<tr><td>".$row_temp['firstname']." ".$row_temp['lastname']."</td><td>".$date."</td><td>".$time."</td><td>".$row['reason']."</td><td><a href=\"".$id."\">Profile</a></td><td><a href=\"/wad/delete.php?table=requests&date=".$row['date']."\"><img src=\"img/delete.png\" /></a></td></tr>";
+		}
+		print "</table>";
+		
+	}
+	
+	?>
 	<br>
 	<div id="upcoming"></div>
 	<table cellspacing='0'>

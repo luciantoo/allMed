@@ -8,11 +8,12 @@ $db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_
 session_start();
 
 $date = $_GET['date'];
+$table = (isset($_GET['table']) ? $_GET['table'] : 'appointments');
 
-$query = mysql_query("DELETE FROM `appointments` WHERE date = '$date'") or die(mysql_error());
+$query = mysql_query("DELETE FROM `$table` WHERE date = '$date'") or die(mysql_error());
 
 echo "<script>
-alert('Appointment deleted.');
+alert('Deleted.');
 window.location.href='/wad/';
 </script>";
 

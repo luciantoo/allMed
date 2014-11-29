@@ -33,6 +33,9 @@ switch ($action) {
   case "edit":
 	include 'edit.php';
 	break;
+  case "request":
+	include 'request.php';
+	break;
   default:
     include 'notfound.php';
 }

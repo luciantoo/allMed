@@ -223,10 +223,11 @@ table tr:hover td{
 	?>
 	<div id="already"></div>
 	<table cellspacing='0'>
-	<tr><th>Name</th><th>E-mail</th><th>City</th><th>Address</th><th>Phone</th></tr>
+	<tr><th>Name</th><th>E-mail</th><th>City</th><th>Address</th><th>Phone</th><th>Profile</th></tr>
 	<?php
 	while($row = mysql_fetch_array($query2)){
-    print "<tr><td>".$row['firstname']." ".$row['lastname']."</td><td>".$row['email']."</td><td>".$row['city']."</td><td>".$row['address']."</td><td>".$row['phone']."</td></tr>";
+	$id = "/wad/profile.php?uid=" . $row['uid'];
+    print "<tr><td>".$row['firstname']." ".$row['lastname']."</td><td>".$row['email']."</td><td>".$row['city']."</td><td>".$row['address']."</td><td>".$row['phone']."</td><td><a href=\"".$id."\">Profile</a></td></tr>";
 	}
 	print "</table>";
 	?>
